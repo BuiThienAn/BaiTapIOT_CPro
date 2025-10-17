@@ -28,7 +28,7 @@ void out_of_memory(){
 int main(int argc, char *argv[]){
     if (argc!=2){
         printf("Input loi\n");
-        return 1;
+        return 1; //Return 1 = Chuong trinh chay loi
     }
     else if (strcmp(argv[1],"stack_overflow")==0){
         stack_overflow(1);
