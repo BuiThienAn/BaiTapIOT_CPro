@@ -1,0 +1,30 @@
+1. Mảng trong C là gì?
+Mảng trong C là một cấu trúc dữ liệu dùng để lưu trữ một tập hợp các phần tử có cùng kiểu dữ liệu (ví dụ: tất cả đều là int hoặc tất cả đều là char). Các phần tử này được lưu trữ liên tiếp nhau trong bộ nhớ và có thể được truy cập trực tiếp thông qua một chỉ số (index), bắt đầu từ 0.
+2. Cách khai báo và khởi tạo mảng một chiều?
+Có 2 cách
+Chỉ khai báo (chưa khởi tạo): Cú pháp: kiểu_dữ_liệu tên_mảng[kích_thước]; Ví dụ: int a[5];
+•	Cách này chỉ dự trữ bộ nhớ cho mảng (ví dụ: 5 ô nhớ cho 5 số int).
+•	Các phần tử trong mảng sẽ chứa giá trị ngẫu nhiên (giá trị "rác").
+Khai báo và khởi tạo đồng thời: Cú pháp: kiểu_dữ_liệu tên_mảng[kích_thước] = {giá_trị_1, giá_trị_2, ...}; Ví dụ: int a[5] = {1, 2, 3, 4, 5};
+•	Cách này vừa dự trữ bộ nhớ, vừa gán giá trị cụ thể cho từng phần tử ngay lập tức.
+•	Nếu bỏ qua kích thước: Bạn có thể không cần ghi rõ kích thước nếu khởi tạo đầy đủ. Trình biên dịch sẽ tự đếm số lượng phần tử. Ví dụ: int b[] = {1, 2, 3}; (tương đương int b[3]).
+•	Nếu khởi tạo một phần: Nếu số lượng giá trị bạn cung cấp ít hơn kích thước mảng, các phần tử còn lại sẽ tự động được gán bằng 0. Ví dụ: int c[5] = {1, 2}; (mảng c sẽ là {1, 2, 0, 0, 0}).
+3. Kích thước của mảng được xác định khi nào?
+Kích thước của mảng được xác định tùy thuộc vào cách nó được khai báo:
+1.	Mảng tĩnh (Static Arrays): ví dụ: int a[10]. Kích thước (số 10) phải là một hằng số và được xác định cố định tại thời điểm biên dịch (compile-time). Trình biên dịch phải biết chính xác cần bao nhiêu bộ nhớ cho mảng này trước khi chương trình chạy.
+2.	Mảng động (Dynamic Arrays): Ngược lại, kích thước mảng cũng có thể được xác định tại thời điểm chạy (run-time), đó là khi bạn cấp phát bộ nhớ động trên heap bằng các hàm như malloc().
+4. Tên mảng biểu diễn điều gì?
+Tên mảng chính là con trỏ trỏ tới phần tử đầu tiên của mảng.
+5. Phân biệt arr[i] và *(arr + i)?
+Hai cách truy cập tương đương nhau trong C, đều dùng để truy cập đến phần tử thứ i trong mảng
+6. Làm sao tính số phần tử trong mảng tĩnh?
+sizeof(arr)/sizeof(arr[0])
+7. Sự khác nhau giữa mảng tĩnh và mảng động?
+Mảng tĩnh có kích thước cố định, mảng động được cấp phát bằng malloc().
+8. Truyền mảng vào hàm khác thế nào so với truyền biến?
+Khi truyền biến (như int, float): Bạn đang thực hiện truyền tham trị (pass-by-value). Hàm sẽ tạo ra một bản sao (copy) của giá trị biến đó. Mọi thay đổi trên bản sao bên trong hàm sẽ không ảnh hưởng đến biến gốc bên ngoài.
+Khi truyền mảng (như int arr[]): Bạn đang thực hiện truyền tham chiếu (pass-by-reference). Thay vì sao chép toàn bộ mảng (việc này rất tốn kém), C chỉ truyền địa chỉ của phần tử đầu tiên của mảng (&arr[0]). Vì hàm nhận được địa chỉ thật, mọi thay đổi nội dung của mảng bên trong hàm sẽ thay đổi trực tiếp mảng gốc.
+9. Mảng hai chiều lưu trong bộ nhớ theo thứ tự nào?
+Theo hàng (row-major order). Điều này có nghĩa là tất cả các phần tử của hàng đầu tiên (hàng 0) được lưu trữ liên tiếp nhau, ngay sau đó là tất cả các phần tử của hàng thứ hai (hàng 1), rồi đến hàng tiếp theo, và cứ thế tiếp tục.
+10. Có thể gán arr1 = arr2 không?
+Không, phải sao chép từng phần tử (dùng vòng lặp hoặc memcpy).
