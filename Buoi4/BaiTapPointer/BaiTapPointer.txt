@@ -1,0 +1,73 @@
+1	Con trỏ (pointer) trong C là gì?
+Biến lưu địa chỉ của một biến khác.
+2	Khai báo con trỏ như thế nào?
+<kiểu dữ liệu> *<tên biến>
+VD: int *p;
+3	Toán tử & và * có ý nghĩa gì?
+& lấy địa chỉ, * truy cập giá trị tại địa chỉ (dereference).
+4	Khi nào cần dùng con trỏ?
+Khi muốn truy cập trực tiếp bộ nhớ hoặc truyền tham chiếu vào hàm, vì để một hàm có thể thay đổi giá trị của biến gốc bên ngoài nó, bạn bắt buộc phải truyền địa chỉ của biến đó (dùng con trỏ).
+5	Sự khác nhau giữa con trỏ và mảng?
+Tên mảng (Array Name):
+•	Khi bạn khai báo một mảng (ví dụ: int arr[5];), arr là một hằng địa chỉ (hoặc hằng con trỏ).
+•	Nó luôn luôn trỏ đến địa chỉ của phần tử đầu tiên (&arr[0]) và giá trị địa chỉ này không thể bị thay đổi trong suốt chương trình.
+•	Bạn không thể gán lại arr (ví dụ: arr = ... là bất hợp lệ) hoặc thực hiện phép toán (ví dụ: arr++ là bất hợp lệ).
+Con trỏ (Pointer):
+•	Khi bạn khai báo một con trỏ (ví dụ: int *p;), p là một biến thực thụ.
+•	Nó được sinh ra để lưu trữ địa chỉ, và bạn có thể thay đổi địa chỉ mà nó đang nắm giữ bất cứ lúc nào.
+•	Bạn có thể gán p (ví dụ: p = arr; hoặc p = &some_variable; là hợp lệ) và thực hiện phép toán (ví dụ: p++ là hợp lệ, để trỏ sang phần tử tiếp theo).
+6	Con trỏ null là gì?
+Con trỏ không trỏ tới địa chỉ hợp lệ nào (NULL).
+7	Làm sao kiểm tra con trỏ hợp lệ trước khi dùng?
+Kiểm tra if (ptr != NULL) trước khi dereference.
+8	Khi gán con trỏ cho con trỏ khác, điều gì xảy ra?
+Cả hai cùng trỏ tới cùng vùng nhớ.
+9	Con trỏ có thể trỏ tới hàm không?
+Có thể, để gọi hàm gián tiếp (function pointer).
+10	Cấp phát động bằng malloc() trả về gì?
+Trả về con trỏ void* trỏ đến vùng nhớ cấp phát.
+11	Khác nhau giữa con trỏ và con trỏ hằng?
+•  Con trỏ hằng (Pointer to a Constant): Dữ liệu nó trỏ tới là hằng số.
+•  Hằng con trỏ (Constant Pointer): Chính con trỏ (địa chỉ) là hằng số.
+12	Con trỏ void là gì và dùng khi nào?
+Là con trỏ không có kiểu cụ thể, dùng trong các hàm tổng quát (generic).
+VD: hàm swap với tham số có thể là bất kỳ kiểu dữ liệu nào,…
+13	Pointer arithmetic là gì?
+Là phép toán cộng/trừ địa chỉ, tăng/giảm theo kích thước kiểu dữ liệu trỏ tới.
+Ví dụ: Con trỏ int *p trỏ đến array kiểu int, thì khi p++, p sẽ tăng địa chỉ mà nó đang trỏ lên 4 byte, nghĩa là bây giờ nó đang trỏ đến phần tử tiếp theo của array.
+14	Sự khác nhau giữa *p++ và (*p)++?
+*p++ tăng địa chỉ, (*p)++ tăng giá trị tại địa chỉ.
+15	Con trỏ đến con trỏ (double pointer) dùng để làm gì?
+- Thay đổi địa chỉ của con trỏ (Truyền tham chiếu cho con trỏ)
+Đây là lý do sử dụng phổ biến nhất và quan trọng nhất.
+Vấn đề: Trong C, mọi thứ đều được "truyền tham trị" (pass-by-value). Khi bạn truyền một con trỏ int *p vào hàm, hàm đó chỉ nhận được một bản sao của p.
+•	Bên trong hàm, bạn có thể thay đổi dữ liệu mà con trỏ trỏ tới (ví dụ: *p = 100;).
+•	Nhưng bạn không thể thay đổi chính con trỏ đó (ví dụ: p = (int*)malloc(...)) và mong con trỏ gốc bên ngoài thay đổi.
+Giải pháp: Để một hàm có thể thay đổi con trỏ gốc, bạn phải truyền địa chỉ của con trỏ đó.
+- Quản lý Mảng con trỏ
+Đây là cách C hỗ trợ mảng 2 chiều động (hoặc mảng của các chuỗi).
+Con trỏ int ** có thể được dùng để trỏ đến phần tử đầu tiên của một mảng các con trỏ int *.
+Ví dụ : Mảng 2D động (N x M):
+
+16	Khi nào cần free() vùng nhớ động?
+Khi vùng nhớ malloc không còn dùng nữa để tránh rò rỉ bộ nhớ.
+17	Làm sao truyền con trỏ hàm vào hàm khác?
+Khai báo dạng tham số: void func(void (*callback)(int));
+trong đó:
+- func: tên hàm đích
+- *callback: con trỏ hàm
+- (int): hàm mà con trỏ hàm trỏ tới có tham số của hàm đó là kiểu int
+18	Giải thích con trỏ hàm và cách sử dụng với mảng hàm.
+Một con trỏ hàm có thể trỏ tới một mảng các hàm. Điều này cho phép bạn: Lưu trữ các hàm trong một mảng.
+Ví dụ bạn đang viết một Menu, tùy theo lựa chọn của người dùng trong menu đấy, bạn sẽ gọi ra một hàm cụ thể nào đấy. Lựa chọn (input) của người dùng (ví dụ: 1, 2, 3) sẽ được dùng làm chỉ số (index) để truy cập và gọi trực tiếp hàm tương ứng từ mảng.
+Ví dụ cụ thể ở bài số 26.
+19	Con trỏ tới mảng khác với mảng con trỏ thế nào?
+int (*p)[N] là con trỏ tới mảng; int *p[N] là mảng con trỏ.
+Con trỏ mảng là con trỏ trỏ đến phần tử đầu tiên trong mảng. Khi tăng con trỏ này sẽ nó sẽ tăng giảm một lượng bằng với kích thước N*sizeof(<kiểu dữ liệu>) mà nó được khai báo.
+Mảng con trỏ là mỗi phần tử của mảng đấy là một con trỏ.
+20	Làm sao dùng con trỏ để xử lý mảng đa chiều?
+Dùng con trỏ tới mảng (int (*p)[col]) và phép toán địa chỉ.
+Giả sử đã khai báo int (*p)[col], nếu ta p++, thì lúc này p sẽ trỏ đến hàng tiếp theo.
+Giả sử khai báo int (*p)[col]=matrix; thì lúc này p đang trỏ đến hàng đầu tiên của matrix đó.  Để gọi được phần tử bất kỳ thì sẽ có 2 bước:
+1. Di chuyển p trỏ đến hàng mà chúng ta muốn: p+i
+2. Di chuyển đến cột mà chúng ta muốn: *(p+i)+j. Để lấy được giá trị, ta deference thêm một lần nữa, kết quả cuối cùng: *(*(p+i)+j)
